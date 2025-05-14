@@ -1,16 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Body from "./components/Body";
+import Header from "./components/Header";
+import { ToggleSideBarContext } from "./context/SidebarContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainContainer from "./components/MainContainer";
+import WatchPage from "./components/WatchPage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const appRouter = createBrowserRouter([{
+    path: "/",
+    element: <Body />,
+    errorElement: <h1>Page Not Found</h1>,
+    children: [
+      {
+        path: "/",
+        element: <MainContainer />,
+      },{
+        // for useParams
+        // path: "/watch/:videoId",
+
+        // for useSearchParams
+        path: "/watch",
+        element:<WatchPage />,
+      }]
+  }, {}]);
 
   return (
     <>
-      <h1>hey</h1>
+      <Provider store={store}>
+        <ToggleSideBarContext.Provider
+          value={{ isSideBarOpen, setIsSideBarOpen }}
+        >
+          <Header />
+          <RouterProvider router={appRouter} />
+        </ToggleSideBarContext.Provider>
+      </Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

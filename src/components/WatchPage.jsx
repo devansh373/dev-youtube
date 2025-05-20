@@ -2,6 +2,7 @@ import React, { use, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/appSlice";
 import { useDispatch } from "react-redux";
+import CommentsContainer from "./CommentsContainer";
 
 const WatchPage = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,9 @@ useEffect(() => {
   const videoId = searchParams.get("v");
   return (
     <div>
-      <h1>{videoId}</h1>
+
+    <div>
+      {/* <h1>{videoId}</h1> */}
       <iframe
         width="560"
         height="315"
@@ -31,7 +34,11 @@ useEffect(() => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         // referrerpolicy="strict-origin-when-cross-origin"
         allowFullScreen
-      ></iframe>
+        ></iframe>
+        </div>
+        <div>
+          <CommentsContainer/>
+        </div>
     </div>
   );
 };

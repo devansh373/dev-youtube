@@ -1,7 +1,15 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { closeMenu } from "../utils/appSlice";
+import { useDispatch } from "react-redux";
 
 const WatchPage = () => {
+    const dispatch = useDispatch();
+useEffect(() => {
+    dispatch(closeMenu());
+  }, []);
+
+
   // params is used when url has slash(/) videoId
   // for example: /watch/abc123
   // const {videoId} = useParams();

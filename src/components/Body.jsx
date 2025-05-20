@@ -6,7 +6,10 @@ import { Outlet } from "react-router-dom";
 
 
 const Body = () => {
-  const { isSideBarOpen } = useContext(ToggleSideBarContext);
+
+  
+    // if using useContext
+  // const { isSideBarOpen } = useContext(ToggleSideBarContext);
   
   return (
     <div className="flex">

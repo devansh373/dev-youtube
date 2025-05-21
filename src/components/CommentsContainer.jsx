@@ -4,8 +4,8 @@ import { FaUserCircle } from "react-icons/fa";
 const CommentsList = ({ comments }) => {
   return (
     <div>
-      {comments.map((comment) => (
-        <div>
+      {comments.map((comment,index) => (
+        <div key={index}>
           <Comment comment={comment} />
           {comment.replies.length > 0 && (
             <div className=" p-2 m-4 border-l-2 border-gray-400">

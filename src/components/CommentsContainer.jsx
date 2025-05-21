@@ -27,7 +27,7 @@ const Comment = ({ comment }) => {
         alt="user"
       /> */}
       <FaUserCircle className="text-2xl"/>
-      <div className>
+      <div>
         <h1 className="font-medium">{comment.name}</h1>
         <p>{comment.text}</p>
       </div>

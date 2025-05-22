@@ -9,7 +9,7 @@ const VideoCard = ({ info }) => {
     // <Link to={`/watch/${id}`} className='p-2 m-2 w-80 shadow-lg'>
 
     // for useSearchParams
-    <Link to={`/watch?v=${id}`} className="p-2 m-2 w-80 shadow-lg">
+    <Link to={`/watch?v=${id}`} className="p-2 m-2 w-76 shadow-lg">
       <img
         className="rounded-lg"
         src={thumbnails?.medium?.url}

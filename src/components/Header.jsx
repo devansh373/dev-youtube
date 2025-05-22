@@ -85,7 +85,7 @@ const Header = () => {
   //   document.documentElement.classList.toggle("dark", newTheme);
   // };
   return (
-    <div className="flex justify-between items-center p-4 border-b-2 border-gray-200 shadow-lg">
+    <div className="flex justify-between items-center p-4 border-b-2 border-gray-200 shadow-lg sticky top-0 z-10 bg-white dark:bg-gray-800">
       {/* Logo */}
       <div className="flex items-center">
         <RiMenuFill

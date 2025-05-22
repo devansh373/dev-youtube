@@ -10,6 +10,7 @@ import WatchPage from "./components/WatchPage";
 import { openMenu } from "./utils/appSlice";
 import ThemeContext from "./context/ThemeContext";
 
+
 function App() {
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);

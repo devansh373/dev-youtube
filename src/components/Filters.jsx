@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Filters = () => {
   const filters = [
@@ -19,14 +19,14 @@ const Filters = () => {
         {filters.map((filter) => (
           <button
             key={filter.id}
-            className="px-4 py-2 bg-gray-100 rounded-full text-sm font-medium hover:bg-gray-200 cursor-pointer transition duration-200 ease-in-out"
+            className="px-4 py-2 bg-gray-100 rounded-full text-sm font-medium hover:bg-gray-200 cursor-pointer transition duration-200 ease-in-out dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >
             {filter.name}
           </button>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;

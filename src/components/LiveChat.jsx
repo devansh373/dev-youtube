@@ -7,22 +7,22 @@ import { generateRandomEntry } from "../utils/helper";
 const LiveChat = () => {
   const [liveMessage, setLiveMessage] = useState("");
   const dispatch = useDispatch();
-  useEffect(() => {
-    // API Polling
-    const timer = setInterval(() => {
-      dispatch(
-        addMessage({
-          name: generateRandomEntry().name,
-          message: generateRandomEntry().message,
-          // message: "Lorem ipsum asddfaddfadas sadsqasfa",
-        })
-      );
-    }, 2000);
+  // useEffect(() => {
+  //   // API Polling
+  //   const timer = setInterval(() => {
+  //     dispatch(
+  //       addMessage({
+  //         name: generateRandomEntry().name,
+  //         message: generateRandomEntry().message,
+  //         // message: "Lorem ipsum asddfaddfadas sadsqasfa",
+  //       })
+  //     );
+  //   }, 2000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, []);
 
   const chatMessages = useSelector((store) => store.chat.messages);
   const handleSubmit = (e) => {
@@ -38,7 +38,7 @@ const LiveChat = () => {
   }
   return (
     <>
-      <div className="flex flex-col-reverse mx-2 p-2 w-full h-[600px] border border-black bg-slate-50 rounded-lg overflow-y-scroll">
+      <div className="flex flex-col-reverse mx-2 p-2 w-full h-[600px] border border-black bg-slate-50 rounded-lg overflow-y-scroll dark:bg-gray-800">
         {chatMessages.map((message, index) => (
           <LiveChatMessage
             key={index}
@@ -51,7 +51,7 @@ const LiveChat = () => {
         ))}
       </div>
       <form
-        className="flex  items-center gap-2 p-2 my-2  w-full border border-gray-400 bg-slate-50 rounded-lg"
+        className="flex  items-center gap-2 p-2 my-2  w-full border border-gray-400 bg-slate-50 rounded-lg dark:bg-gray-800"
         onSubmit={(e) => {
           handleSubmit(e);
           // e.preventDefault();

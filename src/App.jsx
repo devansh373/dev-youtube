@@ -8,10 +8,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainContainer from "./components/MainContainer";
 import WatchPage from "./components/WatchPage";
 import { openMenu } from "./utils/appSlice";
+import ThemeContext from "./context/ThemeContext";
 
 function App() {
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isDark, setIsDark] = useState(false)
   const appRouter = createBrowserRouter([{
     path: "/",
     element: <Body />,
@@ -31,16 +33,18 @@ function App() {
   }, {}]);
 
   return (
-    <>
+    <div className={`${isDark?"dark":""} dark:bg-gray-900 dark:text-white`}>
       <Provider store={store}>
         <ToggleSideBarContext.Provider
           value={{ isSideBarOpen, setIsSideBarOpen }}
         >
+          <ThemeContext.Provider value={{ isDark, setIsDark}}>
           <Header />
           <RouterProvider router={appRouter} />
+          </ThemeContext.Provider>
         </ToggleSideBarContext.Provider>
       </Provider>
-    </>
+    </div>
   );
 }
 

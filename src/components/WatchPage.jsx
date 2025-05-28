@@ -4,13 +4,13 @@ import { closeMenu } from "../utils/appSlice";
 import { useDispatch } from "react-redux";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
+import Suggestions from "./Suggestions";
 
-const WatchPage = () => {
-    const dispatch = useDispatch();
-useEffect(() => {
+const WatchPage = ({ isLiveVideo }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
     dispatch(closeMenu());
   }, []);
-
 
   // params is used when url has slash(/) videoId
   // for example: /watch/abc123
@@ -22,29 +22,34 @@ useEffect(() => {
   const videoId = searchParams.get("v");
   return (
     <div className="w-full">
-<div className=" flex w-full p-4">
-
-    <div className="">
-      {/* <h1>{videoId}</h1> */}
-      <iframe
-        width="1000"
-        height="600"
-        // src="https://www.youtube.com/embed/VIDEO_ID"
-        src={`https://www.youtube.com/embed/${videoId}`}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        // referrerpolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-        ></iframe>
+      <div className=" flex w-full p-4">
+        <div className=" bg-gray-300">
+          {/* <h1>{videoId}</h1> */}
+          <iframe
+            width="1000"
+            height="600"
+            // src="https://www.youtube.com/embed/VIDEO_ID"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            // referrerpolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
         </div>
-        <div className="w-full">
-          <LiveChat/>
-        </div>
-        </div>
-        <div>
-          <CommentsContainer videoId={videoId}/>
-        </div>
+        {isLiveVideo ? (
+          <div className="w-full">
+            <LiveChat />
+          </div>
+        ) : (
+          <div>
+            <Suggestions />
+          </div>
+        )}
+      </div>
+      <div>
+        <CommentsContainer videoId={videoId} />
+      </div>
     </div>
   );
 };

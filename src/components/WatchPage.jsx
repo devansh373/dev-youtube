@@ -43,7 +43,7 @@ useEffect(() => {
         </div>
         </div>
         <div>
-          <CommentsContainer/>
+          <CommentsContainer videoId={videoId}/>
         </div>
     </div>
   );

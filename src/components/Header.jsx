@@ -85,7 +85,7 @@ const Header = () => {
   //   document.documentElement.classList.toggle("dark", newTheme);
   // };
   return (
-    <div className="flex justify-between items-center p-4 border-b-2 border-gray-200 shadow-lg sticky top-0 z-10 bg-white dark:bg-gray-800">
+    <div className="flex justify-between items-center p-4  shadow-lg sticky top-0 z-10 bg-white dark:bg-black">
       {/* Logo */}
       <div className="flex items-center">
         <RiMenuFill
@@ -109,7 +109,7 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search"
-          className=" px-4 py-2 w-[400px] border-2 border-gray-300 rounded-l-full focus:outline-none focus:border-gray-400  "
+          className=" px-4 py-2 w-[400px] border-1 border-gray-600 rounded-l-full focus:outline-none focus:border-gray-400  "
           onChange={(e) => setSearchQuery(e.target.value)}
           value={searchQuery}
           onFocus={() => searchQuery.length > 0 && setShowSuggestions(true)}
@@ -131,16 +131,18 @@ const Header = () => {
             ))}
           </div>
         )}
-        <span className="px-4 py-2 bg-gray-100 cursor-pointer border-2 border-l-0 border-gray-300 rounded-r-full dark:bg-gray-800">
+        <span className="px-4 py-2 bg-gray-100 cursor-pointer border-1 border-l-0 border-gray-600 rounded-r-full dark:bg-gray-600">
           <CiSearch className="text-[1.5rem]  " />
         </span>
       </div>
       {/* User Profile */}
       <div className="flex items-center">
         {isDark ? (
-          <MdLightMode className="text-[1.5rem] mx-[10px] cursor-pointer"
+          <MdLightMode
+            className="text-[1.5rem] mx-[10px] cursor-pointer"
             // onClick={() => document.documentElement.classList.toggle("dark")}
-            onClick={handleThemeChange}/>
+            onClick={handleThemeChange}
+          />
         ) : (
           <MdDarkMode
             className="text-[1.5rem] mx-[10px] cursor-pointer"

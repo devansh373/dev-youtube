@@ -34,7 +34,7 @@ function App() {
   }, {}]);
 
   return (
-    <div className={`${isDark?"dark":""} dark:bg-gray-900 dark:text-white`}>
+    <div className={`${isDark?"dark":""} dark:bg-black dark:text-white`}>
       <Provider store={store}>
         <ToggleSideBarContext.Provider
           value={{ isSideBarOpen, setIsSideBarOpen }}

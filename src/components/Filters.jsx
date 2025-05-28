@@ -15,7 +15,7 @@ const Filters = () => {
   ];
   return (
     <div>
-      <div className="flex gap-4 p-4 border-b-2 border-gray-200 shadow-lg">
+      <div className="flex gap-4 p-4  shadow-lg">
         {filters.map((filter) => (
           <button
             key={filter.id}

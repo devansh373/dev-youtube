@@ -10,7 +10,7 @@ const useSearchVideos = (query) => {
   useEffect(() => {
     if(query.length===0) dispatch(clearSearchResults())
     showSearchResults && fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet${query&&"&q="+query}&key=${GOOGLE_API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet${query&&"&q="+query}&key=${GOOGLE_API_KEY}&maxResults=20`
     )
       .then((data) => data.json())
       .then((res) => {

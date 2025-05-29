@@ -1,129 +1,134 @@
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { RiMenuFill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { ToggleSideBarContext } from "../context/SidebarContext";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "../utils/appSlice";
-import { Link } from "react-router-dom";
+import { setShowSearchResults, toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_AUTO_SUGGEST_API_URL } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
 import ThemeContext from "../context/ThemeContext";
+import useSearchVideos from "../hooks/useSearchVideos";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const dispatch = useDispatch();
-  const handleToggle2 = () => {
-    dispatch(toggleMenu());
-  };
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  const { setIsSideBarOpen } = useContext(ToggleSideBarContext);
-  const { isDark, setIsDark } = useContext(ThemeContext);
+  const dispatch = useDispatch();
   const searchCache = useSelector((store) => store.search);
+  const { isDark, setIsDark } = useContext(ThemeContext);
+  const { setIsSideBarOpen } = useContext(ToggleSideBarContext);
+  const inputRef = useRef("");
+  useSearchVideos(searchQuery);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchCache[searchQuery]) {
         setSuggestions(searchCache[searchQuery]);
         setShowSuggestions(true);
       } else {
-        handleSearch();
+        fetch(YOUTUBE_AUTO_SUGGEST_API_URL + searchQuery)
+          .then((res) => res.json())
+          .then((data) => {
+            setSuggestions(data[1]);
+            setShowSuggestions(true);
+            dispatch(cacheResults({ [searchQuery]: data[1] }));
+          });
       }
     }, 200);
-    return () => {
-      clearTimeout(timer);
-    };
+
+    return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const handleToggle = () => {
-    setIsSideBarOpen((prev) => !prev);
-  };
-  const handleSearch = () => {
-    console.log(searchQuery);
-    searchQuery.length > 0 &&
-      fetch(YOUTUBE_AUTO_SUGGEST_API_URL + searchQuery)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setSuggestions(data[1]);
-          setShowSuggestions(true);
-          dispatch(cacheResults({ [searchQuery]: data[1] }));
-        });
-    if (searchQuery.length === 0) {
+  const handleKeyDown = (e) => {
+    console.log("here")
+    if (e.key === "ArrowDown") {
+      setHighlightedIndex((prev) =>
+        prev < suggestions.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      setHighlightedIndex((prev) =>
+        prev > 0 ? prev - 1 : suggestions.length - 1
+      );
+    } else if (e.key === "Enter") {
+      if (highlightedIndex >= 0) {
+        setSearchQuery(suggestions[highlightedIndex]);
+        setShowSuggestions(false);
+        setHighlightedIndex(-1);
+        dispatch(setShowSearchResults(true));
+      }
+    } else if (e.key === "Escape") {
       setShowSuggestions(false);
-      setSuggestions([]);
+      setHighlightedIndex(-1);
     }
-  };
-  // const handleThemeChange = () => {
-  //   // Handle theme change logic here
-  // };
-  // const [isDark, setIsDark] = useState(() => {
-  //   return localStorage.getItem("theme") === "dark";
-  // });
-
-  // useEffect(() => {
-  //   if (isDark) {
-  //     document.documentElement.classList.add("dark");
-  //   } else {
-  //     document.documentElement.classList.remove("dark");
-  //   }
-  //   localStorage.setItem("theme", isDark ? "dark" : "light");
-  // }, [isDark]);
-
-  const handleThemeChange = () => {
-    setIsDark((prev) => !prev);
+    // inputRef.current = suggestions[highlightedIndex + 1];
   };
 
-  // useEffect(() => {
-  // },[isDark])
+  const handleThemeChange = () => setIsDark((prev) => !prev);
 
-  // const handleThemeChange = () => {
-  //   const newTheme = !isDark;
-  //   setIsDark(newTheme);
-  //   document.documentElement.classList.toggle("dark", newTheme);
-  // };
   return (
-    <div className="flex justify-between items-center p-4  shadow-lg sticky top-0 z-10 bg-white dark:bg-black">
-      {/* Logo */}
+    <div className="flex justify-between items-center p-4 shadow-lg sticky top-0 z-10 bg-white dark:bg-black">
+      {/* Logo & Sidebar Toggle */}
       <div className="flex items-center">
         <RiMenuFill
           className="text-[1.5rem] mx-[10px] cursor-pointer"
-          // onClick={handleToggle}
-          onClick={handleToggle2}
+          onClick={() => dispatch(toggleMenu())}
         />
-        {/* <Link to={"/"}> */}
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
           alt="YouTube Logo"
           className="h-6"
         />
-        {/* </Link> */}
-        <h1 className="text-xl font-bold ml-2 dark:!text-white !text-black">
+        <h1 className="text-xl font-bold ml-2 dark:text-white text-black">
           YouTube
         </h1>
       </div>
+
       {/* Search Bar */}
-      <div className="flex items-center justify-center   relative">
-        <input
-          type="text"
-          placeholder="Search"
-          className=" px-4 py-2 w-[400px] border-1 border-gray-600 rounded-l-full focus:outline-none focus:border-gray-400  "
-          onChange={(e) => setSearchQuery(e.target.value)}
-          value={searchQuery}
-          onFocus={() => searchQuery.length > 0 && setShowSuggestions(true)}
-          onBlur={() => setShowSuggestions(false)}
-        />
-        {showSuggestions && (
-          <div className="absolute top-[100%] bg-white border-2 border-gray-300 rounded-lg  w-full overflow-y-auto">
+      <div className="flex flex-col items-center relative w-[400px]">
+        <div className="flex w-full">
+          <input
+            ref={inputRef}
+            type="text"
+            value={searchQuery}
+            // value={inputRef.current}
+            placeholder="Search"
+            onChange={(e) => {
+              // inputRef.current = e.target.value;
+              console.log(e.target.value.length);
+              if (e.target.value.length === 0)
+                dispatch(setShowSearchResults(false));
+              setSearchQuery(e.target.value);
+              setHighlightedIndex(-1);
+            }}
+            onFocus={() => searchQuery && setShowSuggestions(true)}
+            onBlur={() => setShowSuggestions(false)}
+            onKeyDown={handleKeyDown}
+            className="px-4 py-2 w-full border border-gray-600 rounded-l-full focus:outline-none"
+          />
+          <span className="px-4 py-2 bg-gray-100 border border-l-0 border-gray-600 rounded-r-full dark:bg-gray-600 cursor-pointer">
+            <CiSearch className="text-[1.5rem]" />
+          </span>
+        </div>
+
+        {showSuggestions && suggestions.length > 0 && (
+          <div className="absolute top-[100%] mt-1 w-full bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-lg h-auto  z-50">
             {suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                className={`p-2 cursor-pointer ${
+                  index === highlightedIndex
+                    ? "bg-gray-200 dark:bg-zinc-700"
+                    : "hover:bg-gray-100 dark:hover:bg-zinc-600"
+                }`}
+                onMouseDown={() => {
                   setSearchQuery(suggestion);
+                  setHighlightedIndex(-1);
                   setShowSuggestions(false);
+                  dispatch(setShowSearchResults(true));
                 }}
               >
                 {suggestion}
@@ -131,28 +136,25 @@ const Header = () => {
             ))}
           </div>
         )}
-        <span className="px-4 py-2 bg-gray-100 cursor-pointer border-1 border-l-0 border-gray-600 rounded-r-full dark:bg-gray-600">
-          <CiSearch className="text-[1.5rem]  " />
-        </span>
       </div>
-      {/* User Profile */}
+
+      {/* Theme & Profile */}
       <div className="flex items-center">
         {isDark ? (
           <MdLightMode
-            className="text-[1.5rem] mx-[10px] cursor-pointer"
-            // onClick={() => document.documentElement.classList.toggle("dark")}
+            className="text-[1.5rem] mx-2 cursor-pointer"
             onClick={handleThemeChange}
           />
         ) : (
           <MdDarkMode
-            className="text-[1.5rem] mx-[10px] cursor-pointer"
-            // onClick={() => document.documentElement.classList.toggle("dark")}
+            className="text-[1.5rem] mx-2 cursor-pointer"
             onClick={handleThemeChange}
           />
         )}
-        <FaUserCircle className="text-[1.7rem] mx-[10px] cursor-pointer" />
+        <FaUserCircle className="text-[1.7rem] mx-2 cursor-pointer" />
       </div>
     </div>
   );
 };
+
 export default Header;

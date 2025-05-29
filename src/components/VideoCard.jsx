@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const VideoCard = ({ info }) => {
+const VideoCard = ({ info, searchResult }) => {
   const { snippet, statistics, id } = info;
   const { thumbnails, title, channelTitle } = snippet;
   return (
@@ -9,18 +9,23 @@ const VideoCard = ({ info }) => {
     // <Link to={`/watch/${id}`} className='p-2 m-2 w-80 shadow-lg'>
 
     // for useSearchParams
-    <Link to={`/watch?v=${id}`} className="p-2 m-2 w-76 h-[360px] shadow-lg overflow-hidden rounded-lg hover:bg-gray-300 transition-all delay-100">
-      <div className="w-full h-[162px] bg-gray-300 rounded-lg">
-
-      <img
-        className="rounded-lg "
-        src={thumbnails?.medium?.url}
-        alt="thumbnail"
+    <Link
+      to={`/watch?v=${searchResult ? id.videoId : id}`}
+      className={`p-2 m-2  shadow-lg overflow-hidden rounded-lg hover:bg-gray-300 transition-all delay-100 ${searchResult?"flex w-full h-[250px] mt-4 gap-[10%]":"w-76 h-[310px]"}`}
+    >
+      <div className={`${searchResult?"min-w-[450px] w-[450px] h-full":" w-full h-[162px]"} bg-gray-300 rounded-lg`}>
+        <img
+          className="rounded-lg object-contain"
+          src={searchResult ? (thumbnails?.high?.url):(thumbnails?.medium?.url)}
+          alt="thumbnail"
         />
-        </div>
+      </div>
+      <div>
+
       <h1 className="font-bold text-lg">{title}</h1>
       <p className="text-sm">{channelTitle}</p>
-      <p>{statistics?.viewCount} views</p>
+      {!searchResult && <p>{statistics?.viewCount} views</p>}
+      </div>
     </Link>
   );
 };

@@ -6,20 +6,22 @@ import { fetchAllVideos } from "../helper/helperFunctions";
 import Shimmer from "./Shimmer";
 import { useSelector } from "react-redux";
 import SearchResults from "./SearchResults";
+import { countries } from "../utils/constants";
 
 const VideosContainer = () => {
   const [videos, setVideos] = useState([]);
   const showSearchResults = useSelector((store) => store.app.showSearchResults);
+  const country = useSelector(store=>store.app.country)
   const isMenuOpen = useSelector(store=>store.app.isMenuOpen)
 
   useEffect(() => {
-    fetchAllVideos()
+    fetchAllVideos(countries[country])
       .then((data) => data.json())
       .then((json) => setVideos(json?.items));
-  }, []);
+  }, [country]);
 
   return (
-    <div className={`${isMenuOpen?"":"pl-[-20%]"}`}>
+    <div className={''}>
       {showSearchResults ? (
         <SearchResults/>
       ) : (

@@ -5,8 +5,12 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { ToggleSideBarContext } from "../context/SidebarContext";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSearchResults, toggleMenu } from "../utils/appSlice";
-import { YOUTUBE_AUTO_SUGGEST_API_URL } from "../utils/constants";
+import {
+  setCountry,
+  setShowSearchResults,
+  toggleMenu,
+} from "../utils/appSlice";
+import { countries, YOUTUBE_AUTO_SUGGEST_API_URL } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
 import ThemeContext from "../context/ThemeContext";
 import useSearchVideos from "../hooks/useSearchVideos";
@@ -16,6 +20,7 @@ const Header = () => {
   // const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
@@ -84,7 +89,8 @@ const Header = () => {
           alt="YouTube Logo"
           className="h-6"
         />
-        <a href="/"
+        <a
+          href="/"
           className="text-xl font-bold ml-2 dark:text-white text-black cursor-pointer"
           onClick={() => dispatch(setShowSearchResults(false))}
         >
@@ -156,7 +162,19 @@ const Header = () => {
             onClick={handleThemeChange}
           />
         )}
-        <FaUserCircle className="text-[1.7rem] mx-2 cursor-pointer" />
+        <select
+          name="country"
+          id="country"
+          onChange={(e) => dispatch(setCountry(e.target.value))}
+          className=" text-center w-[100px] border rounded-lg cursor-pointer"
+        >
+          {Object.keys(countries).map((country) => (
+            <option value={country} selected={country === "India"}>
+              {country}
+            </option>
+          ))}
+        </select>
+        {/* <FaUserCircle className="text-[1.7rem] mx-2 cursor-pointer" /> */}
       </div>
     </div>
   );

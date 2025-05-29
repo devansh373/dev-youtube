@@ -7,13 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 const MainContainer = () => {
   const dispatch = useDispatch();
   const isMenuOpen = useSelector(store=>store.app.isMenuOpen)
+  const showSearchResults = useSelector((store) => store.app.showSearchResults);
   useEffect(() => {
       dispatch(openMenu());
       console.log("first")
     }, []);
   return (
     <div className={`${isMenuOpen?"pl-[185px]":""}`}>
-        <Filters/>
+        {!showSearchResults &&<Filters/>}
         <VideosContainer/>
     </div>
   )

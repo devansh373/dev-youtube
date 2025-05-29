@@ -10,8 +10,10 @@ import { YOUTUBE_AUTO_SUGGEST_API_URL } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
 import ThemeContext from "../context/ThemeContext";
 import useSearchVideos from "../hooks/useSearchVideos";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  // const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -44,7 +46,7 @@ const Header = () => {
   }, [searchQuery]);
 
   const handleKeyDown = (e) => {
-    console.log("here")
+    console.log("here");
     if (e.key === "ArrowDown") {
       setHighlightedIndex((prev) =>
         prev < suggestions.length - 1 ? prev + 1 : 0
@@ -82,9 +84,12 @@ const Header = () => {
           alt="YouTube Logo"
           className="h-6"
         />
-        <h1 className="text-xl font-bold ml-2 dark:text-white text-black">
+        <a href="/"
+          className="text-xl font-bold ml-2 dark:text-white text-black cursor-pointer"
+          onClick={() => dispatch(setShowSearchResults(false))}
+        >
           YouTube
-        </h1>
+        </a>
       </div>
 
       {/* Search Bar */}

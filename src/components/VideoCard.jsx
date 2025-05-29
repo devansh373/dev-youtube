@@ -11,7 +11,7 @@ const VideoCard = ({ info, searchResult }) => {
     // for useSearchParams
     <Link
       to={`/watch?v=${searchResult ? id.videoId : id}`}
-      className={`p-2 m-2  shadow-lg overflow-hidden rounded-lg hover:bg-gray-300 transition-all delay-100 ${searchResult?"flex w-full h-[250px] mt-4 gap-[10%]":"w-76 h-[310px]"}`}
+      className={`p-2 m-2  shadow-lg overflow-hidden rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all delay-100 ${searchResult?"flex w-full h-[250px] mt-4 gap-[10%]":"w-76 h-[310px]"}`}
     >
       <div className={`${searchResult?"min-w-[450px] w-[450px] h-full":" w-full h-[162px]"} bg-gray-300 rounded-lg`}>
         <img
@@ -22,7 +22,7 @@ const VideoCard = ({ info, searchResult }) => {
       </div>
       <div>
 
-      <h1 className="font-bold text-lg">{title}</h1>
+      <h1 className="font-bold text-lg truncate">{title}</h1>
       <p className="text-sm">{channelTitle}</p>
       {!searchResult && <p>{statistics?.viewCount} views</p>}
       </div>

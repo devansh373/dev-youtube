@@ -56,6 +56,8 @@ const Comment = ({ comment, reply }) => {
 };
 const CommentsContainer = ({ videoId }) => {
   const [comments, setComments] = useState([]);
+  const [commentsSliced, setCommentsSliced] = useState([]);
+
   const comments2 = [
     {
       name: "Devansh Raghav",
@@ -128,12 +130,25 @@ const CommentsContainer = ({ videoId }) => {
       .then((json) => {
         console.log(json?.items);
         setComments(json?.items);
+        setCommentsSliced(json.items.slice(0, 20));
       });
   }, []);
   return (
     <div className="m-4 p-4 border-2 border-gray-200 shadow-lg">
       <h1 className=" font-bold text-2xl my-2">Comments:</h1>
-      <CommentsList comments={comments} reply={false} />
+      <CommentsList comments={commentsSliced} reply={false} />
+      <button
+        className="cursor-pointer p-2 bg-red-500 text-white rounded-lg hover:bg-red-800"
+        onClick={() => {
+          commentsSliced.length < comments.length
+            ? setCommentsSliced(comments.slice(0, commentsSliced.length + 10))
+            : setCommentsSliced(comments.slice(0,20));
+        }}
+      >
+        {`${
+          comments.length === commentsSliced.length ? "Show Less" : "Load More"
+        }`}
+      </button>
     </div>
   );
 };

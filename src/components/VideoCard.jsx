@@ -22,13 +22,13 @@ const VideoCard = ({ info, searchResult,isFiltered }) => {
       >
         <img
           className="rounded-lg object-contain"
-          src={searchResult ? (thumbnails.high.url) : thumbnails?.maxres?.url}
+          src={searchResult||isFiltered ? (thumbnails?.medium?.url) : thumbnails?.maxres?.url}
           alt="thumbnail"
         />
       </div>
       <div>
         <h1
-          className={`font-bold text-lg ${!searchResult && "md:truncate"}`}
+          className={`font-bold text-lg ${!searchResult||!isFiltered && "md:truncate"}`}
           title={title}
         >
           {title}

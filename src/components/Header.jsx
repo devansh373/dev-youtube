@@ -167,7 +167,7 @@ const Header = () => {
           name="country"
           id="country"
           onChange={(e) => dispatch(setCountry(e.target.value))}
-          className=" text-center w-[100px] border rounded-lg cursor-pointer"
+          className=" text-center w-[100px] border rounded-lg cursor-pointer dark:bg-black"
         >
           {Object.keys(countries).map((country) => (
             <option value={country} selected={country === "India"}>

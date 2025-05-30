@@ -121,7 +121,8 @@ const Header = () => {
             className="px-4 py-2 sm:ml-[5%] md:w-full border border-gray-600 rounded-l-full focus:outline-none"
           />
           <span className="px-4 py-2 bg-gray-100 border border-l-0 border-gray-600 rounded-r-full dark:bg-gray-600 cursor-pointer">
-            <CiSearch className="text-[1.5rem]" />
+            <CiSearch className="text-[1.5rem]"  />
+            {/* onClick={()=>{inputRef.style}} */}
           </span>
         </div>
 

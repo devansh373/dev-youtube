@@ -21,7 +21,7 @@ const VideoCard = ({ info, searchResult,isFiltered }) => {
         } bg-gray-300 rounded-lg`}
       >
         <img
-          className="rounded-lg object-contain"
+          className="rounded-lg object-contain mx-auto w-full"
           src={searchResult||isFiltered ? (thumbnails?.medium?.url) : thumbnails?.maxres?.url}
           alt="thumbnail"
         />

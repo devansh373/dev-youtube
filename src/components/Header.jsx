@@ -77,21 +77,21 @@ const Header = () => {
   const handleThemeChange = () => setIsDark((prev) => !prev);
 
   return (
-    <div className="flex justify-between items-center p-4 shadow-lg sticky top-0 z-10 bg-white dark:bg-black">
+    <div className="flex justify-between items-center p-4 shadow-lg sticky w-full top-0 z-10 bg-white dark:bg-black">
       {/* Logo & Sidebar Toggle */}
-      <div className="flex items-center">
+      <div className="flex justify-around items-center">
         <RiMenuFill
-          className="text-[1.5rem] mx-[10px] cursor-pointer"
+          className=" text-2xl sm:text-[20px] mx-[10px] cursor-pointer"
           onClick={() => dispatch(toggleMenu())}
         />
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
           alt="YouTube Logo"
-          className="h-6"
+          className=" h-6"
         />
         <a
           href="/"
-          className="text-xl font-bold ml-2 dark:text-white text-black cursor-pointer"
+          className="sm:text-xl font-bold ml-2 dark:text-white text-black cursor-pointer"
           onClick={() => dispatch(setShowSearchResults(false))}
         >
           YouTube
@@ -99,7 +99,7 @@ const Header = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="flex flex-col items-center relative w-[400px]">
+      <div className=" flex-col items-center relative w-[200px] md:w-[400px] hidden sm:flex">
         <div className="flex w-full">
           <input
             ref={inputRef}
@@ -118,7 +118,7 @@ const Header = () => {
             onFocus={() => searchQuery && setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
             onKeyDown={handleKeyDown}
-            className="px-4 py-2 w-full border border-gray-600 rounded-l-full focus:outline-none"
+            className="px-4 py-2 sm:ml-[5%] md:w-full border border-gray-600 rounded-l-full focus:outline-none"
           />
           <span className="px-4 py-2 bg-gray-100 border border-l-0 border-gray-600 rounded-r-full dark:bg-gray-600 cursor-pointer">
             <CiSearch className="text-[1.5rem]" />
@@ -129,11 +129,11 @@ const Header = () => {
           <div className="absolute top-[100%] mt-1 w-full bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-lg h-auto  z-50">
             {suggestions.map((suggestion, index) => (
               <div
-                key={index}
-                className={`p-2 cursor-pointer ${
-                  index === highlightedIndex
-                    ? "bg-gray-200 dark:bg-zinc-700"
-                    : "hover:bg-gray-100 dark:hover:bg-zinc-600"
+              key={index}
+              className={`p-2 cursor-pointer ${
+                index === highlightedIndex
+                ? "bg-gray-200 dark:bg-zinc-700"
+                : "hover:bg-gray-100 dark:hover:bg-zinc-600"
                 }`}
                 onMouseDown={() => {
                   setSearchQuery(suggestion);
@@ -141,7 +141,7 @@ const Header = () => {
                   setShowSuggestions(false);
                   dispatch(setShowSearchResults(true));
                 }}
-              >
+                >
                 {suggestion}
               </div>
             ))}
@@ -151,6 +151,7 @@ const Header = () => {
 
       {/* Theme & Profile */}
       <div className="flex items-center">
+        <CiSearch className="sm:hidden text-[1.5rem]" />
         {isDark ? (
           <MdLightMode
             className="text-[1.5rem] mx-2 cursor-pointer"

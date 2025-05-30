@@ -9,11 +9,11 @@ const MainContainer = () => {
   const isMenuOpen = useSelector(store=>store.app.isMenuOpen)
   const showSearchResults = useSelector((store) => store.app.showSearchResults);
   useEffect(() => {
-      dispatch(openMenu());
+      !(window.innerWidth < 640) && dispatch(openMenu());
       console.log("first")
     }, []);
   return (
-    <div className={`${isMenuOpen?"pl-[185px]":""}`}>
+    <div className={`${isMenuOpen?"md:pl-[190px]":""} overflow-auto`}>
         {!showSearchResults &&<Filters/>}
         <VideosContainer/>
     </div>

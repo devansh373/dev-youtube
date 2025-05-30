@@ -11,13 +11,13 @@ const VideoCard = ({ info, searchResult,isFiltered }) => {
     // for useSearchParams
     <Link
       to={`/watch?v=${searchResult||isFiltered ? id.videoId : id}`}
-      className={`p-2   shadow-lg overflow-hidden rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all delay-100 ${
-        searchResult ? "flex w-full h-[250px] mt-4 gap-[10%]" : "w-76 h-[310px]"
+      className={`p-2   shadow-lg overflow-hidden rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all delay-100 gap-[10%] mt-4 ${
+        searchResult ? "flex w-full h-[250px]  " : "flex md:flex-col   w-full md:w-76 md:h-[310px] h-auto"
       }`}
     >
       <div
         className={`${
-          searchResult ? "min-w-[450px] w-[450px] h-full" : " w-full h-[162px]"
+          searchResult ? "min-w-[450px] w-[450px] h-full" : "min-w-[310px] w-[310px] h-full sm:w-full sm:h-[162px]"
         } bg-gray-300 rounded-lg`}
       >
         <img
@@ -28,7 +28,7 @@ const VideoCard = ({ info, searchResult,isFiltered }) => {
       </div>
       <div>
         <h1
-          className={`font-bold text-lg ${!searchResult && "truncate"}`}
+          className={`font-bold text-lg ${!searchResult && "md:truncate"}`}
           title={title}
         >
           {title}

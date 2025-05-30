@@ -38,7 +38,7 @@ const VideosContainer = () => {
       {showSearchResults ? (
         <SearchResults />
       ) : (
-        <div className="flex flex-wrap">
+        <div className="flex-col sm:flex-row flex flex-wrap">
           {videos && videos.length > 0 ? (
             videos?.map((video) => (
               <VideoCard

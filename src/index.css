@@ -12,6 +12,16 @@
 .sidebar-li:hover{
   background-color: #e5e7eb;
 }
+@media (max-width:768px) {
+  .sidebar-li{
+    flex-direction: column;
+    font-size: 10px;
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

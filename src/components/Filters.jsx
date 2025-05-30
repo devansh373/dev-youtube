@@ -25,7 +25,7 @@ const Filters = () => {
         {filters.map((filter) => (
           <button
             key={filter.id}
-            className={`px-4 py-2 bg-gray-100 rounded-full min-w-fit  text-sm font-medium hover:bg-gray-400 cursor-pointer transition duration-200 ease-in-out dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 ${filter.name===activeFilter&& "bg-gray-400 dark:bg-gray-700"}`}
+            className={`px-4 py-2 bg-gray-100 rounded-full min-w-fit  text-sm font-medium hover:bg-gray-400 cursor-pointer transition duration-200 ease-in-out dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 ${filter.name===activeFilter && "bg-gray-400 dark:bg-gray-700"}`}
             onClick={() => {
               setActiveFilter(filter.name);
               dispatch(setFilter(filter.name));

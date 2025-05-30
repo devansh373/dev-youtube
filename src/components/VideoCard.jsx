@@ -12,17 +12,17 @@ const VideoCard = ({ info, searchResult,isFiltered }) => {
     <Link
       to={`/watch?v=${searchResult||isFiltered ? id.videoId : id}`}
       className={`p-2   shadow-lg overflow-hidden rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all delay-100 gap-[10%] mt-4 ${
-        searchResult ? "flex w-full h-[250px]  " : "flex md:flex-col   w-full md:w-76 md:h-[310px] h-auto"
+        searchResult ? "flex w-full h-[250px]  " : "flex flex-col sm:flex-row md:flex-col   w-full md:w-76 md:h-[310px] h-auto"
       }`}
     >
       <div
         className={`${
-          searchResult ? "min-w-[450px] w-[450px] h-full" : "min-w-[310px] w-[310px] h-full sm:w-full sm:h-[162px]"
+          searchResult ? "sm:min-w-[450px] min-w-[300px] sm:w-[450px] h-full" : "min-w-[310px] sm:w-[310px] h-full w-full sm:h-[162px]"
         } bg-gray-300 rounded-lg`}
       >
         <img
           className="rounded-lg object-contain"
-          src={searchResult ? thumbnails?.high?.url : thumbnails?.medium?.url}
+          src={searchResult ? (thumbnails.high.url) : thumbnails?.maxres?.url}
           alt="thumbnail"
         />
       </div>

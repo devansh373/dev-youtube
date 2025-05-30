@@ -20,9 +20,7 @@ const SideBar = () => {
   }
   return (
     <div
-      className={`${
-         "hidden"
-      } sm:flex flex-col gap-4 p-4 border-b-2 border-gray-200 shadow-lg md:fixed top-[73px] left-0 bg-white h-full dark:bg-black`}
+      className={` sm:flex flex-col gap-4 p-4 border-b-2 border-gray-200 shadow-lg sm:fixed top-[73px] left-0 bg-white h-full dark:bg-black`}
     >
       <div>
         <ul className="font-medium p-2 border-b-1 border-b-gray-800 dark:border-b-white">

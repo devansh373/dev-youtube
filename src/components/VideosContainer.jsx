@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import VideoCard from "./VideoCard";
 
-import { fetchAllVideos } from "../helper/helperFunctions";
+import { fetchAllVideos, fetchFilteredVideos } from "../helper/helperFunctions";
 import Shimmer from "./Shimmer";
 import { useSelector } from "react-redux";
 import SearchResults from "./SearchResults";
@@ -11,26 +11,40 @@ import { countries } from "../utils/constants";
 const VideosContainer = () => {
   const [videos, setVideos] = useState([]);
   const showSearchResults = useSelector((store) => store.app.showSearchResults);
-  const country = useSelector(store=>store.app.country)
-  const isMenuOpen = useSelector(store=>store.app.isMenuOpen)
+  const country = useSelector((store) => store.app.country);
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+  const filter = useSelector((store) => store.app.filter);
 
   useEffect(() => {
-    fetchAllVideos(countries[country])
+    filter==="All" && fetchAllVideos(countries[country])
       .then((data) => data.json())
-      .then((json) => setVideos(json?.items));
-  }, [country]);
+      .then((json) => {
+        console.log(json.items);
+        setVideos(json?.items);
+      });
+
+    filter &&
+      filter !== "All" &&
+      fetchFilteredVideos(filter)
+        .then((data) => data.json())
+        .then((json) => {
+          console.log(json.items);
+          setVideos(json.items);
+        });
+  }, [country, filter]);
 
   return (
-    <div className={''}>
+    <div className={""}>
       {showSearchResults ? (
-        <SearchResults/>
+        <SearchResults />
       ) : (
         <div className="flex flex-wrap">
           {videos && videos.length > 0 ? (
             videos?.map((video) => (
               <VideoCard
-                key={video.id}
+                key={filter ? video.id.videoId : video.id}
                 info={video}
+                isFiltered={true}
                 className="p-2 m-2 w-80 shadow-lg"
               />
             ))

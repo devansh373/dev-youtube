@@ -6,7 +6,7 @@ const appSlice = createSlice({
     isMenuOpen: true,
     showSearchResults:false,
     country:"India",
-    filter:null
+    filter:"All"
   },
   reducers: {
     toggleMenu: (state) => {
@@ -23,8 +23,11 @@ const appSlice = createSlice({
     },
 setCountry:(state,action)=>{
   state.country = action.payload;
+},
+setFilter:(state,action)=>{
+  state.filter = action.payload;
 }
   },
 });
-export const { toggleMenu,closeMenu,openMenu,setShowSearchResults,setCountry } = appSlice.actions;
+export const { toggleMenu,closeMenu,openMenu,setShowSearchResults,setCountry,setFilter } = appSlice.actions;
 export default appSlice.reducer;

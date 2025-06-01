@@ -44,7 +44,7 @@ const VideosContainer = () => {
               <VideoCard
                 key={filter ? video.id.videoId : video.id}
                 info={video}
-                isFiltered={true}
+                isFiltered={filter !== "All"}
                 className="p-2 m-2 w-80 shadow-lg"
               />
             ))

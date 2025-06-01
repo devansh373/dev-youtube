@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Body from './components/Body.jsx'
-import MainContainer from './components/MainContainer.jsx'
-import WatchPage from './components/WatchPage.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Body from "./components/Body.jsx";
+import MainContainer from "./components/MainContainer.jsx";
+import WatchPage from "./components/WatchPage.jsx";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -35,11 +35,4 @@ const appRouter = createBrowserRouter([
   {},
 ]);
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {/* <RouterProvider router={appRouter}> */}
-    <App />
-    {/* </RouterProvider> */}
-    
-  </StrictMode>,
-)
+createRoot(document.getElementById("root")).render(<App />);

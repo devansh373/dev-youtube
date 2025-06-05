@@ -33,6 +33,7 @@ const Header = () => {
   const { isDark, setIsDark } = useContext(ThemeContext);
   const showSearchResults = useSelector((store) => store.app.showSearchResults);
   const filter = useSelector((store) => store.app.filter);
+  const countryFromStore = useSelector((store) => store.app.country);
   const { setIsSideBarOpen } = useContext(ToggleSideBarContext);
   const inputRef = useRef("");
   const widthRef = useRef(window.innerWidth);
@@ -220,9 +221,10 @@ const Header = () => {
           id="country"
           onChange={(e) => dispatch(setCountry(e.target.value))}
           className=" text-center w-[100px] border rounded-lg cursor-pointer dark:bg-black"
+          value={countryFromStore}
         >
           {Object.keys(countries).map((country) => (
-            <option value={country} selected={country === "India"}>
+            <option value={country} key={country}>
               {country}
             </option>
           ))}

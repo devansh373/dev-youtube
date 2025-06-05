@@ -20,16 +20,16 @@ const VideoCard = ({ info, searchResult, isFiltered }) => {
       <div
         className={`${
           searchResult
-            ? "sm:min-w-[450px] min-w-[230px] sm:w-[450px] h-full"
-            : "min-w-[310px] sm:w-[310px] h-full w-full sm:h-[162px]"
-        } bg-gray-300 rounded-lg`}
+          ? "sm:min-w-[450px] min-w-[230px]  sm:w-[450px] h-full"
+          : "min-w-[310px] sm:w-[310px] h-full w-full sm:h-[162px]"
+        } bg-gray-300 rounded-lg min-h-[200px]`}
       >
         <img
           className="rounded-lg object-contain mx-auto w-full"
           src={
             searchResult || isFiltered
               ? thumbnails?.medium?.url
-              : thumbnails?.maxres?.url
+              : thumbnails.maxres? thumbnails.maxres.url:thumbnails.medium.url
           }
           alt="thumbnail"
         />

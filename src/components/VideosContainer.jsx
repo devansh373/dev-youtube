@@ -42,7 +42,8 @@ const VideosContainer = () => {
           {videos && videos.length > 0 ? (
             videos?.map((video) => (
               <VideoCard
-                key={filter ? video.id.videoId : video.id}
+                // key={filter ? video?.id?.videoId : video?.id}
+                key={video.snippet.title}
                 info={video}
                 isFiltered={filter !== "All"}
                 className="p-2 m-2 w-80 shadow-lg"

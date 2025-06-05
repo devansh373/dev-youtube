@@ -125,7 +125,7 @@ const Header = () => {
       )}
 
       {/* Search Bar */}
-      <div className=" flex-col items-center relative w-[300px] md:w-[400px] flex  sm:flex bg-white">
+      <div className=" flex-col items-center relative min-w-[20%] md:w-[400px] flex  sm:flex bg-white">
         {showSearchBar ? (
           <div className="flex w-full  sm:mr-0">
             <input
@@ -217,12 +217,13 @@ const Header = () => {
           />
         )}
 
-        {!showSearchResults && filter==="All" &&
+        {!showSearchResults 
+         && filter==="All" &&
           <select
           name="country"
           id="country"
           onChange={(e) => dispatch(setCountry(e.target.value))}
-          className=" text-center w-[100px] border rounded-lg cursor-pointer dark:bg-black"
+          className= {`text-center w-[100px] border rounded-lg cursor-pointer dark:bg-black ${showSearchBar?"hidden":""} sm:inline-block`}
           value={countryFromStore}
         >
           {Object.keys(countries).map((country) => (

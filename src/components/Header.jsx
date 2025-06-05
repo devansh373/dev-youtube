@@ -125,10 +125,12 @@ const Header = () => {
       )}
 
       {/* Search Bar */}
-      <div className=" flex-col items-center relative w-[200px] md:w-[400px] flex  sm:flex ">
+      <div className=" flex-col items-center relative w-[300px] md:w-[400px] flex  sm:flex bg-white">
         {showSearchBar ? (
-          <div className="flex w-full mr-5 sm:mr-0">
+          <div className="flex w-full  sm:mr-0">
             <input
+            id="search"
+            name="search"
               ref={inputRef}
               type="text"
               value={searchQuery}

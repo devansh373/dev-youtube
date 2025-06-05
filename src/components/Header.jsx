@@ -125,7 +125,7 @@ const Header = () => {
       )}
 
       {/* Search Bar */}
-      <div className=" flex-col items-center relative min-w-[20%] md:w-[400px] flex  sm:flex bg-white">
+      <div className=" flex-col items-center relative min-w-[20%] md:w-[400px] flex  sm:flex bg-white dark:bg-black">
         {showSearchBar ? (
           <div className="flex w-full  sm:mr-0">
             <input
